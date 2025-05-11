@@ -8,7 +8,7 @@
 <body>
     
     <?php
-        
+
         $conexion = mysqli_connect('localhost', 'root', '', 'basereto'); 
         if ($_SERVER["REQUEST_METHOD"] == "POST") { 
             $nombre = $_REQUEST['nombre']; 
@@ -16,6 +16,7 @@
             $contrasena = $_REQUEST['contrasena']; 
             $confirmar_contrasena = $_REQUEST['confirmar_contrasena'];
 
+            #mirar si la contraseña coincide
             if ($contrasena !== $confirmar_contrasena) {
                 echo "Las contraseñas no coinciden. <br><br> <a href='registroformulario.php'> Volver </a>";
                 exit;
