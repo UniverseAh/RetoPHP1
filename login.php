@@ -4,8 +4,11 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Login</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
 </head>
+
 <body>
+
     <?php
         session_start();
 
@@ -22,11 +25,24 @@
             $fila = mysqli_fetch_assoc($resultado);
 
             if (password_verify($contrasena, $fila['contrasena'])) {
-                // Guarda en la variable el ID del usuario en la sesión
+                # Guarda en la variable el ID del usuario en la sesión
                 $_SESSION['usuario_id'] = $fila['id'];
-                echo "Login exitoso. <a href='tareasformulario.php'> Bienvenido </a>";
+                #cosito 
+    ?>
+    
+                <div class='alert alert-success text-center' role='alert' style='max-width: 400px; margin: 20px auto'> 
+                        <strong>¡Login exitoso!</strong><br>
+                        <a href='tareasformulario.php' class='btn btn-success mt-2'>Bienvenido</a>
+                    </div>
+
+                <?php
             } else {
-                echo "Error: Contraseña incorrecta.";
+                ?>
+                <div class='alert alert-danger text-center' role='alert' style='max-width: 400px; margin: 20px auto'>
+                        Error: Contraseña incorrecta.
+                    </div>
+
+                <?php
             }
         } else {
             echo "Error: Usuario no encontrado.";
@@ -34,5 +50,6 @@
 
         mysqli_close($conexion);
     ?>
+    
 </body>
 </html>

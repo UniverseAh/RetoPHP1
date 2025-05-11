@@ -9,12 +9,12 @@
 <body class="bg-light">
 
     <?php
-        // inicia la sesion
+        # inicia la sesion
         session_start();
 
-        // verificamos si el user esta autenticado
-        if (!isset($_SESSION['usuario_id'])) {// (si no hay un id de user)
-            //si no lo esta lo enviamos al loginformulario
+        # verificamos si el user esta autenticado
+        if (!isset($_SESSION['usuario_id'])) {# (si no hay un id de user)
+            #si no lo esta lo enviamos pal loginformulario
             header("Location: loginformulario.php");
             exit();
         }

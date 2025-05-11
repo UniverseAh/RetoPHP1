@@ -26,7 +26,8 @@
                 $stmt->bind_param("sss", $nombre, $correo, $hash); 
                 
                 if ($stmt->execute()) { 
-                    echo "Usuario registrado con éxito."; 
+                    header("Location: loginformulario.php"); // manda pal inicio de sesión 
+                    exit; //pa que se pare el script
                 } else { 
                     echo "Error: " . $stmt->error; 
                 } 

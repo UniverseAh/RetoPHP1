@@ -4,43 +4,63 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Eliminar Tarea</title>
-        <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/css/bootstrap.min.css" rel="stylesheet">
 </head>
-<body>
-    <?php
-        // Inicia la sesión
-        session_start();
+<body class="bg-light">
 
-        // Verifica si el usuario está autenticado
-        if (!isset($_SESSION['usuario_id'])) {
-            die("Error: Usuario no autenticado.");
-        }
+    <div class="container py-5">
+        <div class="row justify-content-center">
+            <div class="col-md-6">
+                <?php
+                    # Inicia la sesión
+                    session_start();
 
-        // Verifica si se recibió el ID de la tarea
-        if (!isset($_GET['id'])) {
-            die("Error: ID de tarea no especificado.");
-        }
+                    # Verifica si el usuario está autenticado
+                    if (!isset($_SESSION['usuario_id'])) {
+                        echo "<div class='alert alert-danger text-center' role='alert'>
+                                Error: Usuario no autenticado.
+                            </div>";
+                        exit;
+                    }
 
-        $tarea_id = intval($_GET['id']);//obtenemos un valor entero por el metod get con el name 'id'
+                    # Verifica si se recibió el ID de la tarea
+                    if (!isset($_GET['id'])) {
+                        echo "<div class='alert alert-danger text-center' role='alert'>
+                                Error: ID de tarea no especificado.
+                            </div>";
+                        exit;
+                    }
 
-        // Conexión a la base de datos
-        $conexion = mysqli_connect("localhost", "root", "", "basereto") or
-            die("Problemas con la conexión: " . mysqli_connect_error());
+                    $tarea_id = intval($_GET['id']); # se asegura que el id sea entero
 
-        // Elimina la tarea de la base de datos
-        $sql = "DELETE FROM tareas WHERE id = $tarea_id";
-        if (mysqli_query($conexion, $sql)) {
-            echo "La tarea ha sido eliminada con éxito.";
-        } else {
-            die("Error al eliminar la tarea: " . mysqli_error($conexion));
-        }
+                    # Conexión a la base de datos
+                    $conexion = mysqli_connect("localhost", "root", "", "basereto") or
+                        die("<div class='alert alert-danger text-center' role='alert'>
+                                Problemas con la conexión: " . mysqli_connect_error() . "
+                            </div>");
 
-        // Cierra la conexión
-        mysqli_close($conexion);
-    ?>
+                    # Elimina la tarea de la base de datos
+                    $sql = "DELETE FROM tareas WHERE id = $tarea_id";
+                    if (mysqli_query($conexion, $sql)) {
+                        echo "<div class='alert alert-success text-center' role='alert'>
+                                <strong>¡Éxito!</strong> La tarea ha sido eliminada con éxito.
+                            </div>";
+                    } else {
+                        echo "<div class='alert alert-danger text-center' role='alert'>
+                                Error al eliminar la tarea: " . mysqli_error($conexion) . "
+                            </div>";
+                    }
 
-        <div class="text-center mt-3">
-            <a href="tareasformulario.php" class="btn btn-primary">Volver a la lista de tareas</a>
+                    # Cierra la conexión
+                    mysqli_close($conexion);
+                ?>
+
+                <div class="text-center mt-4">
+                    <a href="tareasformulario.php" class="btn btn-primary">Volver a la lista de tareas</a>
+                </div>
+            </div>
         </div>
-    </body>
+    </div>
+
+</body>
 </html>

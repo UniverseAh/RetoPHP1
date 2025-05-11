@@ -8,26 +8,26 @@
 </head>
 <body>
     <?php
-        // Inicia la sesión
+        # Inicia la sesión
         session_start();
 
-        // Verifica si el usuario está autenticado
+        # Verifica si el usuario está autenticado
         if (!isset($_SESSION['usuario_id'])) {
             die("Error: Usuario no autenticado.");
         }
 
-        // Verifica si se recibió el ID de la tarea
+        # Verifica si se recibió el ID de la tarea
         if (!isset($_GET['id'])) {
             die("Error: ID de tarea no especificado.");
         }
 
-        $tarea_id = intval($_GET['id']); // Asegúrate de que el ID sea un número entero
+        $tarea_id = intval($_GET['id']); # se asegura qu ele id sea entero
 
-        // Conexión a la base de datos
+        # Conexión a la base de datos
         $conexion = mysqli_connect("localhost", "root", "", "basereto") or
             die("Problemas con la conexión: " . mysqli_connect_error());
 
-        // Consulta para obtener los datos de la tarea
+        # Consulta para obtener los datos de la tarea
         $query = "SELECT titulo, descripcion FROM tareas WHERE id = $tarea_id";
         $resultado = mysqli_query($conexion, $query);
 
@@ -37,7 +37,7 @@
             die("Error: Tarea no encontrada.");
         }
 
-        // Cierra la conexión temporalmente
+        # Cierra la conexión temporalmente
         mysqli_close($conexion);
     ?>
 
